@@ -5,7 +5,6 @@ import com.dayne.activityservice.dto.ActivityRequest;
 import com.dayne.activityservice.dto.ActivityResponse;
 import com.dayne.activityservice.model.Activity;
 import com.dayne.activityservice.repository.ActivityRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
