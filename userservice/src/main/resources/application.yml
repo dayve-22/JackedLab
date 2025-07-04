@@ -1,6 +1,6 @@
 spring:
   application:
-    name: userservice
+    name: user-service
   datasource:
     url: jdbc:postgresql://localhost:5432/JackedLab
     username: ajay
@@ -11,3 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8081
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
