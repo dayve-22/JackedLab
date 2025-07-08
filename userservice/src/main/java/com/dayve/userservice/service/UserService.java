@@ -38,4 +38,8 @@ public class UserService {
                 user.getCreatedAt(),
                 user.getUpdatedAt());
     }
+
+    public Boolean existByUserId(String userId) {
+        return userRepository.existsById(userId);
+    }
 }
