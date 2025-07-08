@@ -1,10 +1,10 @@
-package com.dayne.activityservice.service;
+package com.dayve.activityservice.service;
 
 
-import com.dayne.activityservice.dto.ActivityRequest;
-import com.dayne.activityservice.dto.ActivityResponse;
-import com.dayne.activityservice.model.Activity;
-import com.dayne.activityservice.repository.ActivityRepository;
+import com.dayve.activityservice.dto.ActivityRequest;
+import com.dayve.activityservice.dto.ActivityResponse;
+import com.dayve.activityservice.model.Activity;
+import com.dayve.activityservice.repository.ActivityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

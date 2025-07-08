@@ -1,4 +1,4 @@
-package com.dayne.eureka;
+package com.dayve.eureka;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

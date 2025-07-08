@@ -1,7 +1,6 @@
-package com.dayne.activityservice.repository;
+package com.dayve.activityservice.repository;
 
-import com.dayne.activityservice.dto.ActivityResponse;
-import com.dayne.activityservice.model.Activity;
+import com.dayve.activityservice.model.Activity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

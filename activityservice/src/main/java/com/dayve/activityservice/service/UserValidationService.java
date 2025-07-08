@@ -1,4 +1,4 @@
-package com.dayne.activityservice.service;
+package com.dayve.activityservice.service;
 
 
 import lombok.RequiredArgsConstructor;

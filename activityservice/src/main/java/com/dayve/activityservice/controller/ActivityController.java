@@ -1,9 +1,9 @@
-package com.dayne.activityservice.controller;
+package com.dayve.activityservice.controller;
 
 
-import com.dayne.activityservice.dto.ActivityRequest;
-import com.dayne.activityservice.dto.ActivityResponse;
-import com.dayne.activityservice.service.ActivityService;
+import com.dayve.activityservice.dto.ActivityRequest;
+import com.dayve.activityservice.dto.ActivityResponse;
+import com.dayve.activityservice.service.ActivityService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

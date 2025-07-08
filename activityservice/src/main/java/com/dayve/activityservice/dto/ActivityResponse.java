@@ -1,9 +1,6 @@
-package com.dayne.activityservice.dto;
+package com.dayve.activityservice.dto;
 
-import com.dayne.activityservice.model.ActivityType;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Field;
+import com.dayve.activityservice.model.ActivityType;
 
 import java.time.LocalDateTime;
 import java.util.Map;

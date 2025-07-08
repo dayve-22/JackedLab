@@ -6,10 +6,12 @@ import com.dayve.userservice.dto.UserResponse;
 import com.dayve.userservice.model.User;
 import com.dayve.userservice.repository.UserRepository;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -40,6 +42,7 @@ public class UserService {
     }
 
     public Boolean existByUserId(String userId) {
+        log.info("Calling User validation api for userId: {}",userId);
         return userRepository.existsById(userId);
     }
 }

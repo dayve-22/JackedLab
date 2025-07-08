@@ -1,4 +1,4 @@
-package com.dayne.activityservice.model;
+package com.dayve.activityservice.model;
 
 public enum ActivityType {
     RUNNING,

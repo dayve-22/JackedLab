@@ -1,4 +1,4 @@
-package com.dayne.activityservice.model;
+package com.dayve.activityservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

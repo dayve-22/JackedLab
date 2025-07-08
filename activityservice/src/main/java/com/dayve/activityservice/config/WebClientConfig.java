@@ -1,4 +1,4 @@
-package com.dayne.activityservice.config;
+package com.dayve.activityservice.config;
 
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

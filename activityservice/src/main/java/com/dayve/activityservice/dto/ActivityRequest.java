@@ -1,6 +1,6 @@
-package com.dayne.activityservice.dto;
+package com.dayve.activityservice.dto;
 
-import com.dayne.activityservice.model.ActivityType;
+import com.dayve.activityservice.model.ActivityType;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Map;
