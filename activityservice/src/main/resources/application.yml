@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/activityjc
-      name: activityjc
+      database: activityjc
 server:
   port: 8082
 eureka:
