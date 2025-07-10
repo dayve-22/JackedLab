@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
 public class ActivityMessageListener {
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity){
-        log.info("Received activity for processing: {}",activity.getId());
+        log.info("Received activity for processing with id :{}",activity.getId());
     }
 }
