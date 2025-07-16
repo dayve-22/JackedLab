@@ -23,3 +23,6 @@ rabbitmq:
     name: activity.queue
   routing:
     key: activity.tracking
+gemini:
+  api:
+    key: ${GEMINI_API_KEY}
