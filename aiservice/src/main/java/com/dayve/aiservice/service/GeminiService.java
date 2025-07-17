@@ -2,12 +2,9 @@ package com.dayve.aiservice.service;
 
 
 import com.google.genai.Client;
-import com.google.genai.JsonSerializable;
-import com.google.genai.types.Content;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.ThinkingConfig;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

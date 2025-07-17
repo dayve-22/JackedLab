@@ -30,8 +30,20 @@ public class ActivityAiService {
 
     private Recommendation parseAiResponse(Activity activity,String aiResponse){
         try {
+            log.info("Raw AI Response: [{}]", aiResponse);
+            int startIndex = aiResponse.indexOf('{');
+            int endIndex = aiResponse.lastIndexOf('}');
+
+            if (startIndex == -1 || endIndex == -1 || endIndex < startIndex) {
+                log.error("Could not find a valid JSON object in the AI response.");
+                return null;
+            }
+
+            String cleanJson = aiResponse.substring(startIndex, endIndex + 1);
+            log.info("Cleaned JSON for Parsing: [{}]", cleanJson);
+
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode rootNode = mapper.readTree(aiResponse);
+            JsonNode rootNode = mapper.readTree(cleanJson);
             JsonNode analysisNode = rootNode.path("analysis");
             StringBuilder fullAnalysis = new StringBuilder();
             addAnalysisSection(fullAnalysis,analysisNode,"overall","Overall:");
