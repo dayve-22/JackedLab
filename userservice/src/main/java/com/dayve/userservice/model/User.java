@@ -1,6 +1,7 @@
 package com.dayve.userservice.model;
 
 import jakarta.persistence.*;
+import jakarta.ws.rs.Encoded;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,6 +26,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @Encoded
     private String password;
 
     @Enumerated(EnumType.STRING)
