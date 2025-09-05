@@ -8,7 +8,6 @@ import com.dayve.userservice.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +18,10 @@ public class UserService {
 
     public UserResponse register(@Valid RegisterRequest request) {
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("Email already exist");
+            User existingUser = userRepository.findByEmail(request.getEmail());
+            return new UserResponse(existingUser.getId(), existingUser.getKeycloakId(), existingUser.getFirstName(), existingUser.getLastName(),
+                    existingUser.getEmail(), existingUser.getPassword(), existingUser.getCreatedAt(), existingUser.getUpdatedAt());
+
         }
         User user = new User();
         user.setEmail(request.getEmail());
@@ -27,13 +29,14 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         User savedUser = userRepository.save(user);
-        return new UserResponse(savedUser.getId(),savedUser.getFirstName(),savedUser.getLastName(),
+        return new UserResponse(savedUser.getId(),savedUser.getKeycloakId(),savedUser.getFirstName(),savedUser.getLastName(),
                 savedUser.getEmail(),savedUser.getPassword(),savedUser.getCreatedAt(),savedUser.getUpdatedAt());
     }
 
     public UserResponse getUserDetails(String userId) {
         User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("No user found"));
         return new UserResponse(user.getId(),
+                user.getKeycloakId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
@@ -42,8 +45,8 @@ public class UserService {
                 user.getUpdatedAt());
     }
 
-    public Boolean existByUserId(String userId) {
-        log.info("Calling User validation api for userId: {}",userId);
-        return userRepository.existsById(userId);
+    public Boolean existByUserId(String keycloakId) {
+        log.info("Calling User validation api for keycloakId: {}",keycloakId);
+        return userRepository.existsByKeycloakId(keycloakId);
     }
 }
