@@ -18,7 +18,7 @@ public class UserService {
         log.info("Validating for userId: {}",userId);
 
             return userServiceWebCLient.get()
-                    .uri("api/users/{userId}/validate", userId)
+                    .uri("api/users/{keycloakId}/validate", userId)
                     .retrieve().bodyToMono(Boolean.class)
                     .onErrorResume(WebClientResponseException.class,e->
             {
@@ -28,5 +28,22 @@ public class UserService {
                     return Mono.error(new RuntimeException("Invalid Request: "+userId));
                 return Mono.error(new RuntimeException("Unexpected error "+ e.getMessage()));
             });
+    }
+
+    public Mono<UserResponse> registerUser(RegisterRequest registerRequest) {
+        log.info("Calling User Registration API for email: {}",registerRequest.getEmail());
+
+        return userServiceWebCLient.post()
+                .uri("api/users/register")
+                .bodyValue(registerRequest)
+                .retrieve().bodyToMono(UserResponse.class)
+                .onErrorResume(WebClientResponseException.class,e->
+                {
+                    if (e.getStatusCode() == HttpStatus.BAD_REQUEST)
+                        return Mono.error(new RuntimeException("Invalid Request" +e.getMessage()));
+                    else if(e.getStatusCode() ==HttpStatus.INTERNAL_SERVER_ERROR)
+                        return Mono.error(new RuntimeException("Internal Server Error" +e.getMessage()));
+                    return Mono.error(new RuntimeException("Unexpected error "+ e.getMessage()));
+                });
     }
 }

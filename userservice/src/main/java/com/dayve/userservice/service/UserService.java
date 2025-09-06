@@ -21,10 +21,10 @@ public class UserService {
             User existingUser = userRepository.findByEmail(request.getEmail());
             return new UserResponse(existingUser.getId(), existingUser.getKeycloakId(), existingUser.getFirstName(), existingUser.getLastName(),
                     existingUser.getEmail(), existingUser.getPassword(), existingUser.getCreatedAt(), existingUser.getUpdatedAt());
-
         }
         User user = new User();
         user.setEmail(request.getEmail());
+        user.setKeycloakId(request.getKeycloakId());
         user.setPassword(request.getPassword());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
