@@ -1,5 +1,9 @@
 package com.dayve.userservice.model;
 
+import com.dayve.userservice.model.enums.Sex;
+import com.dayve.userservice.model.enums.UserRole;
+import com.dayve.userservice.model.enums.WorkoutGoal;
+import com.dayve.userservice.model.enums.WorkoutIntensity;
 import jakarta.persistence.*;
 import jakarta.ws.rs.Encoded;
 import lombok.Data;
@@ -33,6 +37,18 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
+
+    private Double weight;
+
+    private Double height;
+
+    private Integer age;
+
+    private Sex sex;
+
+    private WorkoutIntensity workoutIntensity;
+
+    private WorkoutGoal workoutGoal;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

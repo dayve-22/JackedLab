@@ -2,7 +2,9 @@ package com.dayve.userservice.controller;
 
 
 import com.dayve.userservice.dto.RegisterRequest;
+import com.dayve.userservice.dto.UserProfileDto;
 import com.dayve.userservice.dto.UserResponse;
+import com.dayve.userservice.model.User;
 import com.dayve.userservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -29,5 +31,11 @@ public class UserController {
     public ResponseEntity<Boolean> validateUser(@PathVariable String keycloakId){
         return ResponseEntity.ok(userService.existByUserId(keycloakId));
     }
+
+    @PostMapping("/fill-profile")
+    public ResponseEntity<User> fillUserProfile(@Valid @RequestBody UserProfileDto userProfileDto){
+        return ResponseEntity.ok(userService.fillUserDetails(userProfileDto));
+    }
+
 
 }
