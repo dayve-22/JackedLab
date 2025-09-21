@@ -1,4 +1,4 @@
-package com.dayve.userservice.model;
+package com.dayve.userservice.model.enums;
 
 public enum UserRole {
     USER,

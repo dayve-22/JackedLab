@@ -2,6 +2,7 @@ package com.dayve.userservice.service;
 
 
 import com.dayve.userservice.dto.RegisterRequest;
+import com.dayve.userservice.dto.UserProfileDto;
 import com.dayve.userservice.dto.UserResponse;
 import com.dayve.userservice.model.User;
 import com.dayve.userservice.repository.UserRepository;
@@ -49,4 +50,16 @@ public class UserService {
         log.info("Calling User validation api for keycloakId: {}",keycloakId);
         return userRepository.existsByKeycloakId(keycloakId);
     }
+
+    public User fillUserDetails(@Valid UserProfileDto userProfileDto) {
+        User existingUser = userRepository.findByKeycloakId(userProfileDto.keycloakId());
+        existingUser.setHeight(userProfileDto.height());
+        existingUser.setWeight(userProfileDto.weight());
+        existingUser.setAge(userProfileDto.age());
+        existingUser.setSex(userProfileDto.sex());
+        existingUser.setWorkoutGoal(userProfileDto.workoutGoal());
+        existingUser.setWorkoutIntensity(userProfileDto.workoutIntensity());
+        return userRepository.save(existingUser);
+    }
+
 }
