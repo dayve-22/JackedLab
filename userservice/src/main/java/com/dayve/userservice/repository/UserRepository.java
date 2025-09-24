@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User,String> {
     boolean existsByEmail(@NotBlank(message = "email is required") @Email(message = "invalid email") String email);
@@ -14,5 +16,5 @@ public interface UserRepository extends JpaRepository<User,String> {
 
     Boolean existsByKeycloakId(String keycloakId);
 
-    User findByKeycloakId(String keycloakId);
+    Optional<User> findByKeycloakId(String keycloakId);
 }

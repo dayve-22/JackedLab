@@ -51,15 +51,19 @@ public class UserService {
         return userRepository.existsByKeycloakId(keycloakId);
     }
 
-    public User fillUserDetails(@Valid UserProfileDto userProfileDto) {
-        User existingUser = userRepository.findByKeycloakId(userProfileDto.keycloakId());
-        existingUser.setHeight(userProfileDto.height());
-        existingUser.setWeight(userProfileDto.weight());
-        existingUser.setAge(userProfileDto.age());
-        existingUser.setSex(userProfileDto.sex());
-        existingUser.setWorkoutGoal(userProfileDto.workoutGoal());
-        existingUser.setWorkoutIntensity(userProfileDto.workoutIntensity());
-        return userRepository.save(existingUser);
-    }
+    public User createOrUpdateUserProfile(String keycloakId, @Valid UserProfileDto userProfileDto) {
+        User user = userRepository.findByKeycloakId(keycloakId)
+                .orElse(new User());
 
+        if (user.getId() == null) {
+            user.setKeycloakId(keycloakId);
+        }
+        user.setHeight(userProfileDto.height());
+        user.setWeight(userProfileDto.weight());
+        user.setAge(userProfileDto.age());
+        user.setSex(userProfileDto.sex());
+        user.setWorkoutGoal(userProfileDto.workoutGoal());
+        user.setWorkoutIntensity(userProfileDto.workoutIntensity());
+        return userRepository.save(user);
+    }
 }
