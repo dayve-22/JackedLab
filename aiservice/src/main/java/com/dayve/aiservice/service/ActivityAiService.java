@@ -31,15 +31,15 @@ public class ActivityAiService {
     private Recommendation parseAiResponse(Activity activity,String aiResponse){
         try {
             log.info("Raw AI Response: [{}]", aiResponse);
-            int startIndex = aiResponse.indexOf('{');
-            int endIndex = aiResponse.lastIndexOf('}');
-
-            if (startIndex == -1 || endIndex == -1 || endIndex < startIndex) {
-                log.error("Could not find a valid JSON object in the AI response.");
-                return null;
+            String cleanJson = aiResponse;
+            if (cleanJson.startsWith("```json")) {
+                cleanJson = cleanJson.substring(7);
             }
+            if (cleanJson.endsWith("```")) {
+                cleanJson = cleanJson.substring(0, cleanJson.length() - 3);
+            }
+            cleanJson = cleanJson.trim();
 
-            String cleanJson = aiResponse.substring(startIndex, endIndex + 1);
             log.info("Cleaned JSON for Parsing: [{}]", cleanJson);
 
             ObjectMapper mapper = new ObjectMapper();
@@ -99,22 +99,22 @@ public class ActivityAiService {
                 Additional Metrics: %s
                 Analyse the provided fitness activity and provide the details recommendation in the following EXACT JSON format:
                 {
-                 "analysis":{
-                    "overall":"Overall analysis here",
-                    "calories_remark": "Is it a good exercise for burning calories, Remarks here",
-                 },
-                 "improvements":[{
-                   "area": "Area name",
-                   "recommendation": "Detailed workout recommendation"
-                  }
-                ],
-                {
-                 "suggestions" : [
-                   {
-                    "workout": "Workout name",
-                    "description": "Workout description"
-                   }
-                 ]
+                  "analysis": {
+                    "overall": "Overall analysis here",
+                    "calories_remark": "Is it a good exercise for burning calories, Remarks here"
+                  },
+                  "improvements": [
+                    {
+                      "area": "Area name",
+                      "recommendation": "Detailed workout recommendation"
+                    }
+                  ],
+                  "suggestions": [
+                    {
+                      "workout": "Workout name",
+                      "description": "Workout description"
+                    }
+                  ]
                 }
                 
                 Provide detailed analysis focusing on performance, improvements, next workout suggestions, and safety guidelines.
@@ -126,5 +126,4 @@ public class ActivityAiService {
                 activity.getCaloriesBurned(),
                 activity.getAdditionalMetrics());
     }
-
 }

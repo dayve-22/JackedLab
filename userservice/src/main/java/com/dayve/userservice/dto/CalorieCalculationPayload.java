@@ -1,9 +1,9 @@
 package com.dayve.userservice.dto;
 
 public record CalorieCalculationPayload(
-        int age,
-        double heightCm,
-        double weightKg,
+        Integer age,
+        Double heightCm,
+        Double weightKg,
         String gender,
         String activityLevel,
         String goal

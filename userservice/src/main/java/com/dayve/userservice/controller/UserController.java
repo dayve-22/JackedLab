@@ -11,9 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
-
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
@@ -35,26 +32,23 @@ public class UserController {
         return ResponseEntity.ok(userService.existByUserId(keycloakId));
     }
 
-    @PostMapping
+    @PostMapping("/profile")
     public ResponseEntity<User> createUserProfile(
             @Valid @RequestBody UserProfileDto userProfileDto,
-            @AuthenticationPrincipal Jwt jwt) {
+            @RequestHeader("X-User-ID") String keycloakId) { // Read the header here
 
-        String keycloakId = jwt.getSubject();
         User savedUser = userService.createOrUpdateUserProfile(keycloakId, userProfileDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
 
-    @PutMapping
+    @PutMapping("/profile")
     public ResponseEntity<User> updateUserProfile(
             @Valid @RequestBody UserProfileDto userProfileDto,
-            @AuthenticationPrincipal Jwt jwt) {
+            @RequestHeader("X-User-ID") String keycloakId) {
 
-        String keycloakId = jwt.getSubject();
         User savedUser = userService.createOrUpdateUserProfile(keycloakId, userProfileDto);
         return ResponseEntity.ok(savedUser);
     }
-
 
 }

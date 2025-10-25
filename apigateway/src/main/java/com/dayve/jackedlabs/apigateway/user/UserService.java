@@ -14,11 +14,12 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class UserService {
     private final WebClient userServiceWebCLient;
-    public Mono<Boolean> validateUser(String userId) {
+    public Mono<Boolean> validateUser(String userId,String token) {
         log.info("Validating for userId: {}",userId);
 
             return userServiceWebCLient.get()
                     .uri("api/users/{keycloakId}/validate", userId)
+                    .headers(headers -> headers.setBearerAuth(token))
                     .retrieve().bodyToMono(Boolean.class)
                     .onErrorResume(WebClientResponseException.class,e->
             {
@@ -26,15 +27,18 @@ public class UserService {
                     return Mono.error(new RuntimeException("User not found: "+userId));
                 else if (e.getStatusCode() == HttpStatus.BAD_REQUEST)
                     return Mono.error(new RuntimeException("Invalid Request: "+userId));
+                else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED)
+                    return Mono.error(new RuntimeException("Gateway is not authorized to call user-service. Check tokens."));
                 return Mono.error(new RuntimeException("Unexpected error "+ e.getMessage()));
             });
     }
 
-    public Mono<UserResponse> registerUser(RegisterRequest registerRequest) {
+    public Mono<UserResponse> registerUser(RegisterRequest registerRequest, String token) {
         log.info("Calling User Registration API for email: {}",registerRequest.getEmail());
 
         return userServiceWebCLient.post()
                 .uri("api/users/register")
+                .headers(headers -> headers.setBearerAuth(token))
                 .bodyValue(registerRequest)
                 .retrieve().bodyToMono(UserResponse.class)
                 .onErrorResume(WebClientResponseException.class,e->
