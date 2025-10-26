@@ -23,8 +23,8 @@ JackedLabs is a comprehensive, AI-powered fitness tracking application built on 
 ---
 
 ## System Architecture
-front end link : https://github.com/dayve-22/jackedLab-frontend.git
-This project is built using a microservice architecture, promoting separation of concerns, scalability, and resilience.
+- front end link : https://github.com/dayve-22/jackedLab-frontend.git
+- This project is built using a microservice architecture, promoting separation of concerns, scalability, and resilience.
 
 
 
